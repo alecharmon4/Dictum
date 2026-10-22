@@ -1,7 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Cog, FlaskConical, History, Info, Sparkles, Cpu } from "lucide-react";
-import HandyTextLogo from "./icons/HandyTextLogo";
+import {
+  Cog,
+  FlaskConical,
+  History,
+  Info,
+  Sparkles,
+  Cpu,
+  SpellCheck,
+  Replace,
+} from "lucide-react";
+import DictumTextLogo from "./icons/DictumTextLogo";
 import HandyHand from "./icons/HandyHand";
 import { useSettings } from "../hooks/useSettings";
 import {
@@ -12,6 +21,8 @@ import {
   AboutSettings,
   PostProcessingSettings,
   ModelsSettings,
+  GrammarSettings,
+  ReplacementsSettings,
 } from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
@@ -48,6 +59,18 @@ export const SECTIONS_CONFIG = {
     labelKey: "sidebar.models",
     icon: Cpu,
     component: ModelsSettings,
+    enabled: () => true,
+  },
+  grammar: {
+    labelKey: "sidebar.grammar",
+    icon: SpellCheck,
+    component: GrammarSettings,
+    enabled: () => true,
+  },
+  replacements: {
+    labelKey: "sidebar.replacements",
+    icon: Replace,
+    component: ReplacementsSettings,
     enabled: () => true,
   },
   advanced: {
@@ -94,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div className="flex flex-col w-40 h-full border-e border-mid-gray/20 items-center px-2">
-      <HandyTextLogo width={120} className="m-4" />
+      <DictumTextLogo width={120} className="m-4" />
       <div className="flex flex-col w-full items-center gap-1 pt-2 border-t border-mid-gray/20">
         {availableSections.map((section) => {
           const Icon = section.icon;

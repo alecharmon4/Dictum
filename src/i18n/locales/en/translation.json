@@ -16,7 +16,9 @@
     "postProcessing": "Post Process",
     "history": "History",
     "debug": "Debug",
-    "about": "About"
+    "about": "About",
+    "grammar": "Grammar",
+    "replacements": "Replacements"
   },
   "onboarding": {
     "subtitle": "To get started, choose a transcription model",
@@ -101,7 +103,7 @@
     },
     "permissions": {
       "title": "Permissions Required",
-      "description": "Handy needs a couple of permissions to work properly.",
+      "description": "Dictum needs a couple of permissions to work properly.",
       "microphone": {
         "title": "Microphone Access",
         "description": "Required to hear your voice for transcription."
@@ -161,7 +163,7 @@
     "general": {
       "title": "General",
       "shortcut": {
-        "title": "Handy Shortcuts",
+        "title": "Dictum Shortcuts",
         "description": "Configure keyboard shortcuts to trigger speech-to-text recording",
         "loading": "Loading shortcuts...",
         "none": "No shortcuts configured",
@@ -225,7 +227,7 @@
       },
       "rescan": {
         "label": "Rescan",
-        "tooltip": "Rescan for models added to the models folder or Hugging Face cache outside Handy"
+        "tooltip": "Rescan for models added to the models folder or Hugging Face cache outside Dictum"
       },
       "noModelsMatch": "No models match this filter."
     },
@@ -293,11 +295,11 @@
       },
       "autostart": {
         "label": "Launch on Startup",
-        "description": "Automatically start Handy when you log in to your computer."
+        "description": "Automatically start Dictum when you log in to your computer."
       },
       "showTrayIcon": {
         "label": "Show Tray Icon",
-        "description": "Display the Handy icon in the system tray."
+        "description": "Display the Dictum icon in the system tray."
       },
       "overlay": {
         "style": {
@@ -511,7 +513,7 @@
       },
       "updateChecks": {
         "label": "Check for Updates",
-        "description": "Automatically check for new versions of Handy",
+        "description": "Automatically check for new versions of Dictum",
         "lockedDescription": "Disabled by system configuration (HANDY_DISABLE_UPDATER)"
       },
       "whatsNewPreview": {
@@ -603,7 +605,7 @@
       },
       "keyboardDiagnostic": {
         "title": "Keyboard Diagnostic",
-        "description": "Checks whether keyboard events reach Handy. Only event counts are recorded — never which keys you press.",
+        "description": "Checks whether keyboard events reach Dictum. Only event counts are recorded — never which keys you press.",
         "run": "Run 10s diagnostic",
         "running": "Listening… press your shortcut a few times (e.g. Option+Space)",
         "secureInputLabel": "Secure Input",
@@ -617,7 +619,7 @@
         "mouse": "Mouse",
         "verdictBlocked": "Secure Input is blocking key events — keyed shortcuts cannot work until it is resolved.",
         "verdictSuspicious": "Modifier events arrived but no key events — something is suppressing keys even though Secure Input reports disabled. Please report this on GitHub.",
-        "verdictOk": "Key events are reaching Handy normally.",
+        "verdictOk": "Key events are reaching Dictum normally.",
         "verdictNoEvents": "No events captured — did you press any keys during the test?",
         "failed": "Diagnostic failed: {{error}}"
       }
@@ -626,15 +628,15 @@
       "title": "About",
       "version": {
         "title": "Version",
-        "description": "Current version of Handy"
+        "description": "Current version of Dictum"
       },
       "whatsNewUpdates": {
         "label": "Show What's New",
-        "description": "Show release notes after Handy updates"
+        "description": "Show release notes after Dictum updates"
       },
       "appDataDirectory": {
         "title": "App Data Directory",
-        "description": "Location where Handy stores its data"
+        "description": "Location where Dictum stores its data"
       },
       "sourceCode": {
         "title": "Source Code",
@@ -642,8 +644,8 @@
         "button": "View on GitHub"
       },
       "supportDevelopment": {
-        "title": "Support Development",
-        "description": "Help us continue building Handy",
+        "title": "Support Handy",
+        "description": "Dictum is built on Handy, a free, open-source app. Donate to support its development.",
         "button": "Donate"
       },
       "acknowledgments": {
@@ -651,8 +653,86 @@
         "ggml": {
           "title": "ggml",
           "description": "High-performance tensor library for on-device machine learning inference",
-          "details": "Handy's local speech-to-text is built on transcribe.cpp and ggml. Thanks to the amazing work by Georgi Gerganov and contributors."
+          "details": "Dictum's local speech-to-text is built on transcribe.cpp and ggml. Thanks to the amazing work by Georgi Gerganov and contributors."
+        },
+        "handy": {
+          "title": "Handy",
+          "description": "The open-source dictation app Dictum is built on",
+          "details": "Dictum is a fork of Handy by CJ Pais and contributors, released under the MIT license. Recording, transcription, and model management all come from Handy."
+        },
+        "harper": {
+          "title": "Harper",
+          "description": "Private, offline grammar checking",
+          "details": "Live spelling and grammar checking is powered by Harper by Automattic, released under the Apache 2.0 license."
         }
+      }
+    },
+    "grammar": {
+      "unsupported": "Live spelling and grammar checking is available on macOS and Windows.",
+      "groups": {
+        "checking": "Live checking",
+        "apps": "Apps",
+        "dictionary": "Dictionary"
+      },
+      "enabled": {
+        "label": "Check spelling and grammar as you type",
+        "description": "Underlines mistakes in the apps below. Hover an underline to see suggestions, or use Fix all to correct the whole field."
+      },
+      "accessibilityNeeded": "Grant Dictum Accessibility access in System Settings → Privacy & Security → Accessibility. Checking starts automatically once it's allowed.",
+      "dialect": {
+        "title": "English dialect",
+        "description": "Which spellings count as correct, e.g. color or colour.",
+        "options": {
+          "American": "American",
+          "British": "British",
+          "Canadian": "Canadian",
+          "Australian": "Australian",
+          "Indian": "Indian"
+        }
+      },
+      "dismissed": {
+        "title": "Dismissed suggestions",
+        "description": "Suggestions you dismiss stay hidden. Reset to see them again.",
+        "reset": "Reset",
+        "done": "Dismissed suggestions will show again"
+      },
+      "apps": {
+        "description": "Live checking only runs in these apps.",
+        "toggle": "Check spelling and grammar in {{app}}",
+        "remove": "Remove {{app}}",
+        "add": "Add an app",
+        "addDescription": "Search your installed apps by name.",
+        "searchPlaceholder": "Search apps"
+      },
+      "dictionary": {
+        "title": "Personal dictionary",
+        "description": "Words that should never be flagged as misspelled, like names and jargon.",
+        "placeholder": "Add a word",
+        "add": "Add",
+        "remove": "Remove {{word}}",
+        "duplicate": "\"{{word}}\" is already in your dictionary"
+      }
+    },
+    "replacements": {
+      "title": "Replacements",
+      "description": "Fix words dictation keeps getting wrong. Each rule swaps any of the ways it's heard for the spelling you want, after every dictation.",
+      "empty": "No replacements yet. Add one for a name or term dictation mishears.",
+      "add": "Add replacement",
+      "heardAs": "Heard as",
+      "heardAsPlaceholder": "lisper, lisp her",
+      "replaceWith": "Replace with",
+      "replaceWithPlaceholder": "Lispr",
+      "onlyIf": "Only when the dictation mentions",
+      "onlyIfPlaceholder": "Only when it mentions… (optional, e.g. AI, code)",
+      "onlyIfDescription": "Leave empty to always replace. Otherwise the rule only applies when the dictation contains one of these words.",
+      "matchCase": "Match case",
+      "enabled": "On",
+      "remove": "Remove replacement",
+      "tryIt": {
+        "title": "Try it",
+        "description": "Type a sentence to see what your replacements would turn it into.",
+        "placeholder": "I asked clawed to review the code",
+        "result": "After replacements"
       }
     }
   },
@@ -672,7 +752,7 @@
     "portableUpdateBrowseButton": "Open GitHub Releases"
   },
   "whatsNew": {
-    "title": "New in Handy v{{version}}"
+    "title": "New in Dictum v{{version}}"
   },
   "common": {
     "loading": "Loading...",
@@ -684,7 +764,7 @@
     "noOptionsFound": "No options found"
   },
   "accessibility": {
-    "permissionsDescription": "Handy needs accessibility permissions to type transcribed text.",
+    "permissionsDescription": "Dictum needs accessibility permissions to type transcribed text.",
     "openSettings": "Open System Settings"
   },
   "errors": {
@@ -707,11 +787,11 @@
   },
   "appLanguage": {
     "title": "Application Language",
-    "description": "Change the language of the Handy interface"
+    "description": "Change the language of the Dictum interface"
   },
   "theme": {
     "title": "Application Theme",
-    "description": "Choose whether Handy follows your system theme or stays light or dark",
+    "description": "Choose whether Dictum follows your system theme or stays light or dark",
     "options": {
       "system": "System",
       "light": "Light",

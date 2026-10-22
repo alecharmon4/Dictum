@@ -87,6 +87,25 @@ pub struct ShortcutBinding {
     pub current_binding: String,
 }
 
+/// A dictation fix: any of `variants` becomes `replacement`, optionally only when the dictation
+/// mentions one of `context_keywords`. Applied by [`crate::replacements`].
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Type)]
+pub struct Replacement {
+    pub id: String,
+    pub variants: Vec<String>,
+    pub replacement: String,
+    #[serde(default)]
+    pub context_keywords: Vec<String>,
+    #[serde(default)]
+    pub case_sensitive: bool,
+    #[serde(default = "default_replacement_enabled")]
+    pub enabled: bool,
+}
+
+fn default_replacement_enabled() -> bool {
+    true
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, Type)]
 pub struct LLMPrompt {
     pub id: String,
@@ -453,6 +472,8 @@ pub struct AppSettings {
     pub log_level: LogLevel,
     #[serde(default)]
     pub custom_words: Vec<String>,
+    #[serde(default)]
+    pub replacements: Vec<Replacement>,
     #[serde(default)]
     pub model_unload_timeout: ModelUnloadTimeout,
     #[serde(default = "default_word_correction_threshold")]
@@ -989,6 +1010,7 @@ pub fn get_default_settings() -> AppSettings {
         debug_mode: false,
         log_level: default_log_level(),
         custom_words: Vec::new(),
+        replacements: Vec::new(),
         model_unload_timeout: ModelUnloadTimeout::default(),
         word_correction_threshold: default_word_correction_threshold(),
         history_limit: default_history_limit(),

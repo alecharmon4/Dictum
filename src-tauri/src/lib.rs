@@ -10,6 +10,7 @@ pub mod cli;
 mod clipboard;
 mod commands;
 pub mod engine_supervisor;
+mod grammar;
 mod helpers;
 mod input;
 mod llm_client;
@@ -18,6 +19,7 @@ mod memory;
 mod overlay;
 mod paste_tx;
 pub mod portable;
+mod replacements;
 mod secure_input;
 mod settings;
 mod shortcut;
@@ -216,6 +218,7 @@ fn initialize_core_logic(app_handle: &AppHandle) {
     app_handle.manage(transcription_manager.clone());
     app_handle.manage(history_manager.clone());
     app_handle.manage(tray::TrayState::new());
+    grammar::init(app_handle);
 
     // Note: Shortcuts are NOT initialized here.
     // The frontend is responsible for calling the `initialize_shortcuts` command
@@ -651,6 +654,17 @@ pub fn run(cli_args: CliArgs) {
 
     let specta_builder = Builder::<tauri::Wry>::new()
         .commands(collect_commands![
+            grammar::get_grammar_settings,
+            grammar::set_grammar_enabled,
+            grammar::set_grammar_dialect,
+            grammar::add_grammar_word,
+            grammar::remove_grammar_word,
+            grammar::set_grammar_app_enabled,
+            grammar::remove_grammar_app,
+            grammar::search_grammar_apps,
+            grammar::reset_grammar_dismissed,
+            replacements::update_replacements,
+            replacements::preview_replacements,
             shortcut::change_binding,
             shortcut::reset_binding,
             shortcut::change_shortcut_activation_setting,
@@ -776,13 +790,15 @@ pub fn run(cli_args: CliArgs) {
             managers::transcription::StreamPhaseEvent,
         ]);
 
-    #[cfg(debug_assertions)] // <- Only export on non-release builds
-    specta_builder
-        .export(
-            Typescript::default().bigint(BigIntExportBehavior::Number),
-            "../src/bindings.ts",
-        )
-        .expect("Failed to export typescript bindings");
+    // Only export on non-release builds. A debug .app bundle opened from Finder runs from `/`,
+    // where this relative path isn't writable, so a failed export must not stop the app.
+    #[cfg(debug_assertions)]
+    if let Err(e) = specta_builder.export(
+        Typescript::default().bigint(BigIntExportBehavior::Number),
+        "../src/bindings.ts",
+    ) {
+        eprintln!("Skipping TypeScript bindings export: {e}");
+    }
 
     let invoke_handler = specta_builder.invoke_handler();
 
@@ -946,7 +962,7 @@ pub fn run(cli_args: CliArgs) {
             // for portable mode (redirects WebView2 cache to portable Data dir)
             let mut win_builder =
                 tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::App("/".into()))
-                    .title("Handy")
+                    .title("Dictum")
                     .inner_size(680.0, 570.0)
                     .min_inner_size(680.0, 570.0)
                     .resizable(true)

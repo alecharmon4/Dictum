@@ -33,6 +33,13 @@ fn main() {
         std::process::exit(handy_app_lib::engine_supervisor::run_worker());
     }
 
+    // Grammar highlighter: the live spelling/grammar overlay runs as a
+    // subprocess of the app and never touches Tauri either.
+    if dictum_grammar::is_highlighter_invocation() {
+        dictum_grammar::run_highlighter(true);
+        return;
+    }
+
     let cli_args = CliArgs::parse();
     handy_app_lib::run(cli_args)
 }

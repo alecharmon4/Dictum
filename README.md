@@ -1,3 +1,18 @@
+# Dictum
+
+**Private, offline dictation and live spelling and grammar checking for your desktop.**
+
+Dictum is a fork of [Handy](https://github.com/cjpais/Handy) that adds system-wide spelling and grammar highlights powered by [Harper](https://github.com/Automattic/harper). Everything runs on your computer; nothing is sent to the cloud.
+
+- **Dictation** (from Handy): press a shortcut, speak, and your words appear in any text field.
+- **Live checking**: mistakes are underlined in the apps you choose. Click an underline for suggestions, or use **Fix all** to correct the whole field at once. Configure it on the **Grammar** page.
+
+The grammar overlay lives in [`src-tauri/grammar`](src-tauri/grammar), ported from Harper Desktop (Apache-2.0; see its `LICENSE-HARPER`).
+
+The rest of this README is Handy's and still applies to Dictum.
+
+---
+
 # Handy
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/WVBeWsNXK4)

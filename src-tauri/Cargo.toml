@@ -10,6 +10,10 @@ default-run = "handy"
 [profile.dev]
 incremental = true # Compile your binary in smaller steps.
 
+# Linting runs on every keystroke in the grammar overlay; unoptimized it's sluggish.
+[profile.dev.package.harper-core]
+opt-level = 3
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
@@ -75,6 +79,7 @@ libc = "0.2"
 # Canary, Cohere). Per-platform backend features are added in the target tables
 # (Cargo unifies features, so `serde` here applies to every platform).
 transcribe-rs = { version = "0.3.8", features = ["onnx"] }
+dictum-grammar = { path = "grammar" }
 transcribe-cpp = { version = "0.4.0", default-features = false, features = [
   "serde",
 ] }
