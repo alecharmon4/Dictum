@@ -11,7 +11,7 @@ import {
   Replace,
 } from "lucide-react";
 import DictumTextLogo from "./icons/DictumTextLogo";
-import HandyHand from "./icons/HandyHand";
+import DictumBubble from "./icons/DictumBubble";
 import { useSettings } from "../hooks/useSettings";
 import {
   GeneralSettings,
@@ -45,7 +45,7 @@ interface SectionConfig {
 export const SECTIONS_CONFIG = {
   general: {
     labelKey: "sidebar.general",
-    icon: HandyHand,
+    icon: DictumBubble,
     component: GeneralSettings,
     enabled: () => true,
   },
